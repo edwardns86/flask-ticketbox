@@ -10,8 +10,17 @@ app.config.from_object('config.Config')
 
 db = SQLAlchemy(app)
 
+from project.models import User
 migrate=Migrate(app, db)
+
+
+from project.users import user_blueprint
+app.register_blueprint(user_blueprint, url_prefix = '/user')
+
+from project.events import event_blueprint
+app.register_blueprint(event_blueprint, url_prefix = '/event')
+
 
 @app.route('/')
 def root():
-    return 'Hello World'
+    return 'Home Page'
