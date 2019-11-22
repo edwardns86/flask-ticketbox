@@ -80,8 +80,6 @@ def register():
 @user_blueprint.route('/forgotten-password', methods=[ 'GET', 'POST'])
 
 def forgotten_password():
-    if current_user.is_authenticated:
-        return redirect(url_for('events.home'))
     if request.method == 'POST':
         user = User(email = request.form["email"]).check_user_email()
         if not user:
