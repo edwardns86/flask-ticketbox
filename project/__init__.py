@@ -26,5 +26,5 @@ app.register_blueprint(event_blueprint, url_prefix = '/event')
 @app.route('/')
 def root():
     if current_user.is_authenticated:
-        return render_template('views/home.html')
+        return redirect(url_for('events.root'))
     return redirect(url_for('users.register'))  

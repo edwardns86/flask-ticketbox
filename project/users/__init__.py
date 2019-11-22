@@ -33,7 +33,7 @@ def root():
 @user_blueprint.route('/login',methods=[ 'GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('events.root'))
+        return redirect(url_for('events.home'))
     if request.method == "POST":
         user = User(email = request.form["email"]).check_user_email(request.form["email"])
         if not user: 
@@ -42,7 +42,7 @@ def login():
         if user.check_password(request.form["password"]):   
             login_user(user)
             flash("Welcome back!", "success")
-            return redirect(url_for('events.root'))
+            return redirect(url_for('events.home'))
         flash('Incorrect password, please try to login again', 'warning')
     return render_template("views/login.html")    
 
@@ -57,7 +57,7 @@ def logout():
 @user_blueprint.route('/register', methods=['POST','GET'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('events.root'))
+        return redirect(url_for('events.home'))
     if request.method == 'POST':  
         check_email = User.query.filter_by(email=request.form['email']).first() 
         if check_email:  
@@ -74,14 +74,14 @@ def register():
         db.session.commit() 
         login_user(new_user) 
         flash('Successfully created an account and logged in', 'success')
-        return redirect(url_for('events.root')) # and redirect user to our root
-    return render_template('views/login.html') 
+        return redirect(url_for('events.home')) # and redirect user to our root
+    return render_template('views/register.html') 
 
 @user_blueprint.route('/forgotten-password', methods=[ 'GET', 'POST'])
 
 def forgotten_password():
     if current_user.is_authenticated:
-        return redirect(url_for('events.root'))
+        return redirect(url_for('events.home'))
     if request.method == 'POST':
         user = User(email = request.form["email"]).check_user_email()
         if not user:
@@ -92,13 +92,13 @@ def forgotten_password():
         send_reset_email(user.name, user.email, token)
         flash('We have sent an email to your account with a link to reset your password. Please check your spam if you cannot see it.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('views/login.html')
+    return render_template('views/request-password.html')
 
 
 @user_blueprint.route('/new-password/<token>', methods= [ 'GET', 'POST'])
 def set_new_password(token):
     if current_user.is_authenticated:
-        return redirect(url_for('events.root'))
+        return redirect(url_for('events.home'))
     
     s = URLSafeTimedSerializer(app.secret_key)
     email = s.loads(token , salt="RESET_PASSWORD", max_age=10000)
@@ -108,10 +108,11 @@ def set_new_password(token):
         return redirect(url_for('users.forgotten_password'))
     if request.method == 'POST':
         if request.form['password'] != request.form['checkpassword']:
-            flash('passwords do notmatch')
+            flash('passwords do not match')
             return redirect(url_for('users.set_new_password', token=token))
         user.generate_password(request.form['password'])
         db.session.commit()
         flash('We have set a new password for you...')
-    return render_template('views/login.html', token=token)   
+        return redirect(url_for('users.login'))
+    return render_template('views/password-reset.html', token=token)   
     
