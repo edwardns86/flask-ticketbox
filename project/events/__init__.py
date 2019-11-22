@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, flash, redirect, url_for, Blu
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from project import app , db
 from project.models import User
-from itsdangerous import URLSafeTimedSerializer
 import requests
 
 
