@@ -1,0 +1,37 @@
+<div class="container col-6 my-auto">
+    <form class="form-event " method='POST' action="{{url_for('events.create_event')}}">
+        <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Create an Event</h1>
+        <label for="inputTitle" class="sr-only">Event Name</label>
+        <input name="title" type="name" class=" mt-2 form-control" placeholder="Name Your Event" required=""
+            autofocus=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        <label for="inputContent" class="sr-only">Event Description</label>
+        <input name="content" type="text" class=" mt-2 form-control" placeholder="Describe Your Event" required=""
+            autofocus=""
+            style="background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+
+        <label for="inputLocation" class="sr-only">Event Location</label>
+        <input name="location" type="text" class="mt-2 form-control" placeholder="Where will it take place?" required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+
+        <label for="inputEventStart" class="mt-2">Event Start</label>
+        <input name="event_start_date" type="date" class=" form-control" placeholder="When does it start?" required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        <!-- <input name="event_start_time" type="time" class=" form-control mt-1" placeholder="When time does it start?"
+            required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;"> -->
+
+        <label for="inputEventEnd" class="mt-2">Event End</label>
+        <input name="event_end_date" type="date" class="form-control" placeholder="When does it end?" required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        <!-- <input name="event_end_time" type="time" class=" form-control mt-1" placeholder="When time does it end?"
+            required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;"> -->
+        <label for="inputEventBanner" class="mt-2">Event Image</label>
+        <input name="banner_url" type="url" class="form-control" placeholder="Insert an image url for your event - ideal px dims 800 x 600" required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+
+        <button class="mt-4 btn btn-lg btn-primary btn-block" type="submit">Create Event</button>
+    </form>
+</div>

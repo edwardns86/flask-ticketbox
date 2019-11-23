@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, Blueprint
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from project import app , db
-from project.models import User
+from ticketbox import app , db
+from ticketbox.models import User
 from itsdangerous import URLSafeTimedSerializer
-from flask_mail import Mail , Message
 import requests
 
-mail = Mail(app)
 user_blueprint = Blueprint('users', __name__ ,template_folder='templates' )
 
 def send_reset_email(name, email, token):
@@ -22,7 +20,7 @@ def send_reset_email(name, email, token):
                                 )
         response.raise_for_status()
     except Exception as err:
-        print(f'Other error occurred: {err}')  # Python 3.6
+        print(f'Other error occurred: {err}')  
     else:
         print('Success!')
 
@@ -46,13 +44,11 @@ def login():
         flash('Incorrect password, please try to login again', 'warning')
     return render_template("views/login.html")    
 
-
 @user_blueprint.route('/logout', methods=[ 'GET', 'POST'])
 @login_required  
 def logout():
     logout_user()
     return redirect(url_for('users.login'))
-
 
 @user_blueprint.route('/register', methods=['POST','GET'])
 def register():
@@ -112,5 +108,4 @@ def set_new_password(token):
         db.session.commit()
         flash('We have set a new password for you...')
         return redirect(url_for('users.login'))
-    return render_template('views/password-reset.html', token=token)   
-    
+    return render_template('views/password-reset.html', token=token)  

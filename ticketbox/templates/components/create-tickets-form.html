@@ -1,0 +1,19 @@
+<div class="container col-6 my-auto">
+    <form class="form-tickets " method='POST' action="{{url_for('events.add_event_tickets')}}">
+        <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Add some tickets to your event: {{event.title}}</h1>
+        <label for="inputTitle" class="sr-only">Ticket Type Name</label>
+        <input name="ticket_type" type="name" class=" mt-2 form-control" placeholder="Ticket Type Name" required=""
+            autofocus=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        <label for="inputContent" class="sr-only">How much is this ticket?</label>
+        <input name="ticket_price" type="number" class=" mt-2 form-control" placeholder="How much is this ticket?" required=""
+            autofocus=""
+            style="background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+
+        <label for="inputLocation" class="sr-only">How many tickets are available?</label>
+        <input name="ticket_qty" type="number" class="mt-2 form-control" placeholder="How many tickets are available?" required=""
+            style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        <button class="mt-4 btn btn-lg btn-primary btn-block" type="submit">Add Ticket To Your Event</button>
+    </form>
+</div>
