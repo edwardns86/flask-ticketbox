@@ -1,7 +1,50 @@
-<div class="container col-xl-6 col-lg-6   col-md-9  col-s-12 col-12"></div>
+<div class="card m-2" style="min-width:30rem">
+    <img src={{event.banner_url}} class="card-img-top" alt="...">
+    <div class="card-body">
+        <h2 class="card-text">{{event.title}}</h2>
+        <p class="card-text">{{event.content}}</p>
+        <p class="card-text muted"> {{event.location}} </p>
+        <p class="align-right">From: {{event.event_start_date}} To: {{event.event_end_date}}</p>
+        <p>Event Organiser: {{event.user.name}}</p>
+        <h3>Available Tickets</h3>
 
-<img src={{event.banner_url}} alt="event-image" >
-<h1>{{event.id}}  and  {{event.title}}</h1>
-<h3>{{event.tickets.ticket_type}}</h3>
+        {% for ticket in tickets %}
+        <p>Ticket type: {{ticket.ticket_type}} , Ticket price: £{{ticket.ticket_price}} Currently Available:
+            {{ticket.ticket_qty}}</p>
+        {% endfor %}
+        <h3>Select Tickets</h3>
+        <form class='form-buy-tickets' action="{{url_for('tickets.purchase')}}" method='POST'>
+            {% for ticket in tickets %}
+            <div class="form-group">
+                <input name='event_id' hidden value={{event.id}}>
+                <input  name='ticket_id_{{ticket.id}}' hidden value={{ticket.id}}>
+                <label for="exampleFormControlSelect1">{{ticket.ticket_type}}</label>
+                <select name='ticket_qty_{{ticket.id}}'class="form-control" id="exampleFormControlSelect1">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            {% endfor %}
 
-<h1>Test</h1>
+            <button type="submit" class="btn btn-primary">Buy Tickets</button>
+        </form>
+
+
+
+        <form action="{{url_for('events.view_event', id = event.id)}}">
+            <button type='submit'> Buy Tickets </button>
+        </form>
+
+        <form action="{{url_for('events.view_event', id = event.id)}}">
+            <button type='submit'> Add Tickets</button>
+        </form>
+        <form action="{{url_for('events.view_event', id = event.id)}}">
+            <button type='submit'> Edit Event</button>
+        </form>
+
+    </div>
+</div>

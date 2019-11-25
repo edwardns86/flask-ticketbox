@@ -4,8 +4,6 @@ from ticketbox import db
 from datetime import datetime
 
 
-
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +16,7 @@ class User(UserMixin, db.Model):
 
     events = db.relationship("Event", backref='user', lazy=True)
     orders = db.relationship("Order", backref='user', lazy=True)
+
     def generate_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -41,6 +40,9 @@ class Event(db.Model):
     organiser_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tickets = db.relationship("Ticket", backref="event" , lazy=True)
     
+    def tickets(self):
+        tickets = Ticket.query.filter_by(event_id = self.id).all()
+        return tickets
 
 class Ticket(db.Model):
     __tablename__ = 'tickets'
@@ -49,7 +51,7 @@ class Ticket(db.Model):
     ticket_type = db.Column(db.String, nullable=False)
     ticket_price = db.Column(db.Float, nullable=False)
     ticket_qty = db.Column(db.Integer, nullable=False)
-    orders = db.relationship("Event", backref='user', lazy=True)
+    orders = db.relationship("Event", backref='ticket', lazy=True)
     # HERE IS WHERE I AM AT THE LAST CHANGE 
 
 class Order(db.Model):
@@ -64,12 +66,8 @@ class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
     ticket_id = db.Column(db.Integer, db.ForeignKey('tickets.id'), nullable=False)
-   
-   
-   
-   
-   
-   
+    
+
     # add tags later
 
 # class Tag(db.Model):

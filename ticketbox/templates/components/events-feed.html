@@ -1,6 +1,21 @@
+<div class="card-group">
 {% for event in events %}
-<img src="{{event.banner_url}}" alt="event-image" >
-<h1>{{event.id}}  and  {{event.title}}</h1>
 
+<div class="home-card card m-2" style="min-width:30rem; border:none;">
+    <img src={{event.banner_url}} class="card-img-top" alt="...">
+    <form action="{{url_for('events.view_event', id = event.id)}}">
+            <button class="btn-primary btn-block" type='submit'> View Event</button>
+    </form>
+    <!-- <div class="card-body">
+        <h2 class="card-text">{{event.title}}</h2>
+        <p class="card-text">{{event.content}}</p>
+        <p class="card-text muted"> {{event.location}} </p>
+        <p class="align-right">From: {{event.event_start_date}} To: {{event.event_end_date}}</p>
+        <p>Event Organiser: {{event.user.name}}</p>
+        
+        
+    </div> -->
+</div>
 
 {% endfor %}
+</div>

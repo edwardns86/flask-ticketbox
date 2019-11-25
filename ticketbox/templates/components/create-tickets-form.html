@@ -1,5 +1,5 @@
 <div class="container col-6 my-auto">
-    <form class="form-tickets " method='POST' action="{{url_for('events.add_event_tickets', id=id)}}">
+    <form class="form-tickets " method='POST' action="{{url_for('tickets.add_event_tickets', id=event.id)}}">
         <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Add some tickets to your event: {{event.title}}</h1>
         <label for="inputTitle" class="sr-only">Ticket Type Name</label>
@@ -14,6 +14,8 @@
         <label for="inputLocation" class="sr-only">How many tickets are available?</label>
         <input name="ticket_qty" type="number" class="mt-2 form-control" placeholder="How many tickets are available?" required=""
             style=" background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
-        <button class="mt-4 btn btn-lg btn-primary btn-block" type="submit">Add Ticket To Your Event</button>
+        <button class="mt-4 btn btn-lg btn-primary" type="submit">Add Another Ticket To Your Event</button>
     </form>
+    
+    <a class="mt-4 btn btn-lg btn-success" href="{{url_for('events.home')}}"> Finish Creating Your Event </a>
 </div>

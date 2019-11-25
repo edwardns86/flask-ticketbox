@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container col-9">
+<h2>Order history</h2>
+{% for item in items  %}
+    <h4>{{order.items.id}}</h4>
+{% endfor %}
+</div>
+{% endblock body %}
