@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, Blu
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from ticketbox import app , db
-from ticketbox.models import User
+from ticketbox.models import User, Event, Ticket
 from itsdangerous import URLSafeTimedSerializer
 import requests
 

@@ -10,7 +10,7 @@ app.config.from_object(config.Config)
 
 db = SQLAlchemy(app)
 
-from ticketbox.models import User
+from ticketbox.models import User , Ticket , Event
 login_manager = LoginManager(app)
 migrate=Migrate(app, db)
 
